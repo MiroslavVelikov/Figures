@@ -1,6 +1,8 @@
 package main.java.com.bg.sofia.uni.fmi.figures.models;
 
-public class Triangle implements Figure {
+import java.util.Objects;
+
+public class Triangle implements Figure, Cloneable {
 
     private static final String STRING_FORMAT = "triangle %.2f %.2f %.2f";
 
@@ -61,6 +63,33 @@ public class Triangle implements Figure {
     @Override
     public String toString() {
         return String.format(STRING_FORMAT, sideA, sideB, sideC);
+    }
+
+    @Override
+    public Triangle clone() {
+        try {
+            Triangle clone = (Triangle) super.clone();
+            clone.sideA = sideA;
+            clone.sideB = sideB;
+            clone.sideC = sideC;
+
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Triangle triangle = (Triangle) o;
+        return Double.compare(sideA, triangle.sideA) == 0 &&
+            Double.compare(sideB, triangle.sideB) == 0 && Double.compare(sideC, triangle.sideC) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sideA, sideB, sideC);
     }
 
 }

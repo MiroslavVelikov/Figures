@@ -36,4 +36,13 @@ public class CircleTest {
         assertEquals("circle 10.50", circle.toString());
     }
 
+    @Test
+    public void testCloning() {
+        Circle expected = new Circle(10.5);
+        Circle result = expected.clone();
+
+        assertEquals(expected.toString(), result.toString());
+        assertEquals(expected.perimeter(), result.perimeter());
+    }
+
 }

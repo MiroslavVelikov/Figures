@@ -1,6 +1,6 @@
 package main.java.com.bg.sofia.uni.fmi.figures.models;
 
-public class Circle implements Figure {
+public class Circle implements Figure, Cloneable {
 
     private static final String STRING_FORMAT = "circle %.2f";
 
@@ -30,6 +30,18 @@ public class Circle implements Figure {
     @Override
     public String toString() {
         return String.format(STRING_FORMAT, radius);
+    }
+
+    @Override
+    public Circle clone() {
+        try {
+            Circle clone = (Circle) super.clone();
+            clone.radius = radius;
+
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 
 }

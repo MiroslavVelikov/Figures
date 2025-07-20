@@ -36,4 +36,13 @@ public class TriangleTest {
         assertEquals("triangle 10.40 20.10 30.50", triangle.toString());
     }
 
+    @Test
+    public void testCloning() {
+        Triangle expected = new Triangle(10.4, 20.1, 30.5);
+        Triangle result = expected.clone();
+
+        assertEquals(expected.toString(), result.toString());
+        assertEquals(expected.perimeter(), result.perimeter());
+    }
+
 }

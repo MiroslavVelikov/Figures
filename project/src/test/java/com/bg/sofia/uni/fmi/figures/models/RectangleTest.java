@@ -36,4 +36,13 @@ public class RectangleTest {
         assertEquals("rectangle 10.00 20.30", rectangle.toString());
     }
 
+    @Test
+    public void testCloning() {
+        Rectangle expected = new Rectangle(10, 20.3);
+        Rectangle result = expected.clone();
+
+        assertEquals(expected.toString(), result.toString());
+        assertEquals(expected.perimeter(), result.perimeter());
+    }
+
 }
