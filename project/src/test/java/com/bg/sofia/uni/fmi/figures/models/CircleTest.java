@@ -1,0 +1,32 @@
+package test.java.com.bg.sofia.uni.fmi.figures.models;
+
+import main.java.com.bg.sofia.uni.fmi.figures.models.Circle;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public class CircleTest {
+
+    @Test
+    public void testCreateValidCircle() {
+        Circle circle = new Circle(10.5);
+        assertNotNull(circle);
+    }
+
+    @Test
+    public void testCreateCircleWithNegativeRadius() {
+        assertThrows(IllegalArgumentException.class, () -> new Circle(-10.5));
+    }
+
+    @Test
+    public void testCreateCircleWithRadiusZero() {
+        assertThrows(IllegalArgumentException.class, () -> new Circle(0));
+    }
+
+    @Test
+    public void testOverflowParameter() {
+        assertThrows(ArithmeticException.class, () -> new Circle(Double.MAX_VALUE));
+    }
+
+}
