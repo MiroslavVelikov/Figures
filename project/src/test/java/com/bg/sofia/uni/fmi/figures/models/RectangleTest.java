@@ -3,6 +3,7 @@ package test.java.com.bg.sofia.uni.fmi.figures.models;
 import main.java.com.bg.sofia.uni.fmi.figures.models.Rectangle;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -27,6 +28,12 @@ public class RectangleTest {
     @Test
     public void testOverflowPerimeter() {
         assertThrows(ArithmeticException.class, () -> new Rectangle(Double.MAX_VALUE, 10));
+    }
+
+    @Test
+    public void testToString() {
+        Rectangle rectangle = new Rectangle(10, 20.3);
+        assertEquals("rectangle 10.00 20.30", rectangle.toString());
     }
 
 }

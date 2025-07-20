@@ -2,6 +2,8 @@ package main.java.com.bg.sofia.uni.fmi.figures.models;
 
 public class Rectangle implements Figure {
 
+    private static final String STRING_FORMAT = "rectangle %.2f %.2f";
+
     private double sideA;
     private double sideB;
 
@@ -33,6 +35,11 @@ public class Rectangle implements Figure {
     @Override
     public double perimeter() {
         return (sideA + sideB) * 2;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(STRING_FORMAT, sideA, sideB);
     }
 
 }

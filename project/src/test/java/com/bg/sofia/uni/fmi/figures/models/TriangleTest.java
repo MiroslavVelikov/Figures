@@ -3,6 +3,7 @@ package test.java.com.bg.sofia.uni.fmi.figures.models;
 import main.java.com.bg.sofia.uni.fmi.figures.models.Triangle;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -27,6 +28,12 @@ public class TriangleTest {
     @Test
     public void testOverflowPerimeter() {
         assertThrows(ArithmeticException.class, () -> new Triangle(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE));
+    }
+
+    @Test
+    public void testToString() {
+        Triangle triangle = new Triangle(10.4, 20.1, 30.5);
+        assertEquals("triangle 10.40 20.10 30.50", triangle.toString());
     }
 
 }

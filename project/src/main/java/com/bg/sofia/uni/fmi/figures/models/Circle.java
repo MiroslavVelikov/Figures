@@ -2,6 +2,8 @@ package main.java.com.bg.sofia.uni.fmi.figures.models;
 
 public class Circle implements Figure {
 
+    private static final String STRING_FORMAT = "circle %.2f";
+
     private double radius;
 
     public Circle(double radius) {
@@ -23,6 +25,11 @@ public class Circle implements Figure {
     @Override
     public double perimeter() {
         return 2 * radius * Math.PI;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(STRING_FORMAT, radius);
     }
 
 }

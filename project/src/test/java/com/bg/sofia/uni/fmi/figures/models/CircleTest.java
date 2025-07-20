@@ -3,6 +3,7 @@ package test.java.com.bg.sofia.uni.fmi.figures.models;
 import main.java.com.bg.sofia.uni.fmi.figures.models.Circle;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -27,6 +28,12 @@ public class CircleTest {
     @Test
     public void testOverflowParameter() {
         assertThrows(ArithmeticException.class, () -> new Circle(Double.MAX_VALUE));
+    }
+
+    @Test
+    public void testToString() {
+        Circle circle = new Circle(10.5);
+        assertEquals("circle 10.50", circle.toString());
     }
 
 }

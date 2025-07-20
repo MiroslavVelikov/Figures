@@ -2,6 +2,8 @@ package main.java.com.bg.sofia.uni.fmi.figures.models;
 
 public class Triangle implements Figure {
 
+    private static final String STRING_FORMAT = "triangle %.2f %.2f %.2f";
+
     private double sideA;
     private double sideB;
     private double sideC;
@@ -54,6 +56,11 @@ public class Triangle implements Figure {
     @Override
     public double perimeter() {
         return sideA + sideB + sideC;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(STRING_FORMAT, sideA, sideB, sideC);
     }
 
 }
