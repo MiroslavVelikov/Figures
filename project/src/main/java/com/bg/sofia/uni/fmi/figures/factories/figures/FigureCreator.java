@@ -5,5 +5,6 @@ import main.java.com.bg.sofia.uni.fmi.figures.models.Figure;
 public interface FigureCreator {
 
     Figure createFigure(double... params);
+    int requiredParameters();
 
 }

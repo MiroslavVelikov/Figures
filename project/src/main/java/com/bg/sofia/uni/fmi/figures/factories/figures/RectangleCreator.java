@@ -20,4 +20,9 @@ public class RectangleCreator implements FigureCreator {
         return new Rectangle(sideA, sideB);
     }
 
+    @Override
+    public int requiredParameters() {
+        return REQUIRED_PARAMS_COUNT;
+    }
+
 }

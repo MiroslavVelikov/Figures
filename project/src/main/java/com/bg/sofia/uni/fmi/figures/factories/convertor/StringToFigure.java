@@ -1,6 +1,7 @@
-package main.java.com.bg.sofia.uni.fmi.figures.factories;
+package main.java.com.bg.sofia.uni.fmi.figures.factories.convertor;
 
 import main.java.com.bg.sofia.uni.fmi.figures.factories.figures.CircleCreator;
+import main.java.com.bg.sofia.uni.fmi.figures.factories.figures.CreatorType;
 import main.java.com.bg.sofia.uni.fmi.figures.factories.figures.FigureCreator;
 import main.java.com.bg.sofia.uni.fmi.figures.factories.figures.RectangleCreator;
 import main.java.com.bg.sofia.uni.fmi.figures.factories.figures.TriangleCreator;
@@ -20,9 +21,10 @@ public class StringToFigure {
 
     private StringToFigure() {
         creators = new HashMap<>();
-        creators.put("triangle", new TriangleCreator());
-        creators.put("circle", new CircleCreator());
-        creators.put("rectangle", new RectangleCreator());
+
+        for (CreatorType type : CreatorType.values()) {
+            creators.put(type.getFigure(), type.getCreator());
+        }
     }
 
     public Figure createFrom(String representation) {
@@ -40,12 +42,12 @@ public class StringToFigure {
                 .toArray()
             );
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("incorrect input format");
         }
     }
 
     public static StringToFigure getInstance() {
-        if (instance.creators.isEmpty()) {
+        if (instance == null) {
             instance = new StringToFigure();
         }
 

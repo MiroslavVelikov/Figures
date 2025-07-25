@@ -19,4 +19,9 @@ public class CircleCreator implements FigureCreator {
         return new Circle(radius);
     }
 
+    @Override
+    public int requiredParameters() {
+        return REQUIRED_PARAMS_COUNT;
+    }
+
 }

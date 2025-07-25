@@ -21,4 +21,9 @@ public class TriangleCreator implements FigureCreator {
         return new Triangle(sideA, sideB, sideC);
     }
 
+    @Override
+    public int requiredParameters() {
+        return REQUIRED_PARAMS_COUNT;
+    }
+
 }
