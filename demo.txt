@@ -1,0 +1,7 @@
+circle 0.71
+triangle 0.66 0.68 0.72
+circle 0.28
+triangle 0.95 0.11 0.97
+triangle 0.23 0.38 0.50
+rectangle 0.82 0.48
+rectangle 0.17 0.67
