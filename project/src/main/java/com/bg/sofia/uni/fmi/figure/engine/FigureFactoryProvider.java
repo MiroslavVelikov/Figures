@@ -24,7 +24,6 @@ public class FigureFactoryProvider {
 
     private List<Figure> figures;
     private FigureFactory figureFactory;
-    private FactoryType type;
     private final Iterator<String> input;
 
     private FigureFactoryProvider() {
@@ -57,13 +56,7 @@ public class FigureFactoryProvider {
                         System.out.println(newFigure.toString());
                     }
                     case "select" -> {
-                        if (parts.length == 3 && parts[1].equals(FactoryType.FILE_FIGURE_FACTORY.getType())) {
-                            selectFactory(FactoryType.FILE_FIGURE_FACTORY, parts[2]);
-                        } else if (parts.length == 2 && parts[1].equals(FactoryType.RANDOM_FIGURE_FACTORY.getType())) {
-                            selectFactory(FactoryType.RANDOM_FIGURE_FACTORY, "");
-                        } else if (parts.length == 2 && parts[1].equals(FactoryType.STDIN_FIGURE_FACTORY.getType())) {
-                            selectFactory(FactoryType.STDIN_FIGURE_FACTORY, "");
-                        }
+                        selectFactory(parts);
                     }
                     case "duplicate" -> {
                         if (parts.length == 2) {
@@ -72,7 +65,7 @@ public class FigureFactoryProvider {
                                 Figure duplicate = duplicateFigure(index);
                                 System.out.println(duplicate);
                             } catch (Exception e) {
-                                continue;
+                                System.out.println("duplication failed");
                             }
                         }
                     }
@@ -83,14 +76,22 @@ public class FigureFactoryProvider {
                                 Figure deleted = deleteFigure(index);
                                 System.out.println(deleted);
                             } catch (Exception e) {
-                                continue;
+                                System.out.println("deleting failed");
                             }
                         }
                     }
                     case "print" -> print();
                     case "save" -> {
+                        boolean isSaved = false;
+
                         if (parts.length == 2) {
-                            saveToFile(parts[1]);
+                            isSaved = saveToFile(parts[1]);
+                        }
+
+                        if (isSaved) {
+                            System.out.println("successfully saved");
+                        } else {
+                            System.out.println("figures were not saved");
                         }
                     }
                     case "exit" -> { return; }
@@ -102,23 +103,21 @@ public class FigureFactoryProvider {
         }
     }
 
-    private void selectFactory(FactoryType type, String input) throws IOException {
-        switch (type) {
-            case FILE_FIGURE_FACTORY -> {
-                Stream<String> lines = Files.lines(Paths.get(input));
-                figureFactory = new StreamFigureFactory(lines);
-                this.type = FactoryType.FILE_FIGURE_FACTORY;
-            }
-            case RANDOM_FIGURE_FACTORY -> {
-                figureFactory = new RandomFigureFactory();
-                this.type = FactoryType.RANDOM_FIGURE_FACTORY;
-            }
-            case STDIN_FIGURE_FACTORY -> {
-                Stream<String> stdinLines = new BufferedReader(new InputStreamReader(System.in)).lines();
-                figureFactory = new StreamFigureFactory(stdinLines);
-                this.type = FactoryType.STDIN_FIGURE_FACTORY;
-            }
+    private void selectFactory(String... args) throws IOException {
+        if (args.length == 3 && args[1].equals(FactoryType.FILE_FIGURE_FACTORY.getType())) {
+            Stream<String> lines = Files.lines(Paths.get(args[2]));
+            figureFactory = new StreamFigureFactory(lines);
+        } else if (args.length == 2 && args[1].equals(FactoryType.RANDOM_FIGURE_FACTORY.getType())) {
+            figureFactory = new RandomFigureFactory();
+        } else if (args.length == 2 && args[1].equals(FactoryType.STDIN_FIGURE_FACTORY.getType())) {
+            Stream<String> stdinLines = new BufferedReader(new InputStreamReader(System.in)).lines();
+            figureFactory = new StreamFigureFactory(stdinLines);
+        } else {
+            System.out.println("factory was not selected");
+            return;
         }
+
+        System.out.printf("%s factory was selected%n", args[1]);
     }
 
     private Figure create() {

@@ -24,6 +24,10 @@ public class StringToFigure {
         }
     }
 
+    public static void setInstance(StringToFigure mockConverter) {
+        instance = mockConverter;
+    }
+
     public Figure createFrom(String representation) {
         if (representation.isEmpty()) {
             return null;
